@@ -81,10 +81,16 @@
 
 - 작성: [ ]
     - 외부 API로 작동하며 사용자가 직접 제어할수 없습니다.
-    - Diary 글이 작성/수정 되면 Report 또한 작성/수정 됩니다.
+    - Diary 글이 작성/수정 되면 Report 또한 작성/수정 됩니다
+    - 보고서에는 다음과같은내용이 포함된다.
+    - 감정 (긍정,부정,중립)
+    - 감정에 대한확률
+    - 감정에 점수를 주는 요인(특정 단어)
+    - Naver CLOVA Sentiment Example 이미지를
 - 열람: [ ]
     - 로그인이 선행되어야합니다.
     - 보고서의 원본글에 대해 작성자만 열람가능합니다.
+
 - 보고서 모아보기: [ ]
     - 로그인이 선행되어야합니다.
     - 자신의 글에대한 보고서를 목록화해서 보여줌
@@ -97,3 +103,5 @@
 ERDCLOUD: [링크](https://www.erdcloud.com/d/qKP47RGWdwnbKqzRG)  
 ![ERD](Img/ERD.png)
 
+SentimentApi: 
+![SentimentExample](Img/Sentiment.png)
