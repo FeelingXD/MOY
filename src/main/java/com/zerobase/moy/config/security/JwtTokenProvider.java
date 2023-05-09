@@ -1,4 +1,4 @@
-package com.zerobase.moy.config.Security;
+package com.zerobase.moy.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,11 +23,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-  @Value("${jwt.auth.header}")
-  private String TOKEN_HEADER;
+  @Value("${jwt.auth.atk}")
+  private String ACCESS_TOKEN_HEADER;
+
+  @Value("${jwt.auth.rtk}")
+  private String REFRESH_TOKEN_HEADER;
   @Value("${jwt.secretKey}")
-  private String secretKey; //todo : property로 key 설정하기
-  private final Long expiredTime = 1000 * 60 * 60 * 24L;
+  private String secretKey;
+
+  private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 5 ;
+  private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60* 24;
   private final UserDetailsService userDetailsService;
 
 
@@ -35,7 +41,7 @@ public class JwtTokenProvider {
     secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes(StandardCharsets.UTF_8));
   }
 
-  public String createToken(String email, List<String> roles) {
+  public String createAccessToken(String email, List<String> roles) {
 
     Claims claims = Jwts.claims().setSubject(email);
     claims.put("roles", roles);
@@ -44,13 +50,21 @@ public class JwtTokenProvider {
     String token = Jwts.builder()
         .setClaims(claims)
         .setIssuedAt(now)
-        .setExpiration(new Date(now.getTime() + expiredTime))
+        .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRATION))
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
 
     return token;
   }
 
+  public String createRefreshToken(){//rtk
+    Date now = new Date();
+    String token = Jwts.builder()
+        .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRATION))
+        .signWith(SignatureAlgorithm.HS256, secretKey)
+        .compact();
+    return  token;
+  }
   public Authentication getAuthentication(String token) { // token 정보 검사
 
     UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUser(token));
@@ -68,10 +82,13 @@ public class JwtTokenProvider {
     return info;
   }
 
-  public String resolveToken(HttpServletRequest request) {
-    return request.getHeader(TOKEN_HEADER);
+  public String resolveAtk(HttpServletRequest request) {
+    return request.getHeader(ACCESS_TOKEN_HEADER);
   }
 
+  public String resolveRtk(HttpServletRequest request){
+    return request.getHeader(REFRESH_TOKEN_HEADER);
+  }
   public boolean validateToken(String token) {
     try { // check validate  with secretKey
       Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -79,5 +96,11 @@ public class JwtTokenProvider {
     } catch (Exception e) {
       return false;
     }
+  }
+  public Long getExpiration(String token){
+    Date expiration = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody()
+        .getExpiration();
+    long now =new Date().getTime();
+    return expiration.getTime()-now;
   }
 }
