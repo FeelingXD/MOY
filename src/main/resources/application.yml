@@ -1,4 +1,8 @@
 spring:
+  redis:
+    port: 6379
+    host: localhost
+    timeout: 4
   datasource:
     username: root
     password: root
@@ -8,11 +12,14 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+
 jwt:
   secretKey: 38583a5affa17b1ff4b0dc664f55ec125282913f95f42aa4ad11de2198019ddf5c8bfc1bcee5b047cfa356fc61d2d679d278d0943479451518bf6325d58e2094
   auth:
-    header: X-AUTH-HEADER
+    atk: ATK
+    rtk: RTK

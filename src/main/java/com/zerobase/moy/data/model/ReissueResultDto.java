@@ -10,14 +10,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SignInResultDto extends SignUpResultDto {
+public class ReissueResultDto extends  SignUpResultDto{
 
   private TokenDto token;
-
   @Builder
-  public SignInResultDto(boolean success, int code, String msg, String atk,String rtk) {
+  public ReissueResultDto(boolean success, int code, String msg, String atk,String rtk) {
     super(success, code, msg);
-    this.token= TokenDto.builder()
+    this.token = TokenDto.builder()
         .atk(atk)
         .rtk(rtk)
         .build();
