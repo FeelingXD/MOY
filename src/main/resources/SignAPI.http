@@ -1,0 +1,50 @@
+###
+
+
+### signup
+POST http://localhost:8080/sign-api/sign-up
+Content-Type: application/json
+
+{
+  "email": "testaccount1@gmail.com",
+  "name": "지민",
+  "password": "1234"
+}
+
+### sign 2
+POST http://localhost:8080/sign-api/sign-up
+Content-Type: application/json
+
+{
+  "email": "testaccount2@gmail.com",
+  "name": "민우",
+  "password": "1234"
+}
+
+### sign in
+POST http://localhost:8080/sign-api/sign-in
+Content-Type: application/json
+
+{
+  "email": "testaccount1@gmail.com",
+  "password": "1234"
+}
+
+### sign in2
+POST http://localhost:8080/sign-api/sign-in
+Content-Type: application/json
+
+{
+  "email": "testaccount2@gmail.com",
+  "password": "1234"
+}
+### reissue
+POST  http://localhost:8080/sign-api/reissue
+ATK: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0YWNjb3VudDJAZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE2ODM2MzAzOTMsImV4cCI6MTY4MzYzMDY5M30.s_ryM5lguTIi2TpjucEzzMYRY0ySY1nR_JFQLpSo2II
+RTK: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODM3MTY3OTN9.EakAUetwc1Ng_c7PBhGaw184dnbjk2OEMVi0nv-JfOk
+
+
+###logout
+POST http://localhost:8080/sign-api/logout
+ATK: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0YWNjb3VudDJAZ21haWwuY29tIiwicm9sZXMiOltdLCJpYXQiOjE2ODM2MjIxNDIsImV4cCI6MTY4MzYyMjQ0Mn0.cp9WKGLTBt_QEiUtsJBMLoC-aTiRqmEywZrB2tqX-AU
+RTK: eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODM3MDg1NDJ9.B-FLtWy446LhpZZz8db8dS7u6zKBRTs1AGyvgS_gQ-k
