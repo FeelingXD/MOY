@@ -55,11 +55,11 @@ public class SwaggerConfig {
     AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
     AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
     authorizationScopes[0] = authorizationScope;
-    return List.of(new SecurityReference("X-AUTH-HEADER", authorizationScopes));
+    return List.of(new SecurityReference("ATK", authorizationScopes));
   }
 
   private ApiKey apiKey() {
-    return new ApiKey("X-AUTH-HEADER", "X-AUTH-HEADER", "header");
+    return new ApiKey("ATK", "ATK", "header");
   }
 
 }
