@@ -16,8 +16,6 @@ public class BaseEntity {
   @CreatedDate
   private LocalDateTime createDate;
 
-  @CreatedBy
-  private String createdBy;
 
   @LastModifiedDate
   private LocalDateTime lastModifiedDate;
