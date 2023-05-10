@@ -3,14 +3,15 @@ package com.zerobase.moy.data.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
+@Getter
 public class LogoutResultDto extends SignUpResultDto {
   private boolean success;
 

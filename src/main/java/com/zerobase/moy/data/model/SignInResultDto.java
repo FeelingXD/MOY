@@ -3,13 +3,15 @@ package com.zerobase.moy.data.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Getter
+
 public class SignInResultDto extends SignUpResultDto {
 
   private TokenDto token;
