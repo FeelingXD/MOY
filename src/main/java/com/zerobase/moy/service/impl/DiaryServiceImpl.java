@@ -3,9 +3,9 @@ package com.zerobase.moy.service.impl;
 import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
-import com.zerobase.moy.data.model.diary.DiaryResultDto;
 import com.zerobase.moy.repository.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,27 +22,24 @@ public class DiaryServiceImpl implements DiaryService {
 
     var diary=DiaryForm.toEntity(form);
     diary.setUser(user);
-    Diary savedResult=diaryRepository.save(diary);
-
-    return savedResult;
+    return diaryRepository.save(diary);
   }
 
   @Override
-  public DiaryResultDto patchDiary(Long id, DiaryForm form) {
+  public Diary patchDiary(Long id, DiaryForm form) {
 
     var diary=diaryRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 없습니다."));
     var user=  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    if(!diary.getUser().equals(user)){
+    if(!Objects.equals(diary.getUser().getId(), user.getId())){
       throw new RuntimeException("권한이 없습니다.");
     }
 
     diary.setContent(form.getContent());
     diary.setTitle(form.getTitle());
 
-    Diary savedResult=diaryRepository.save(diary);
 
-    return DiaryResultDto.of(savedResult);
+    return diaryRepository.save(diary);
   }
 
   @Override
@@ -58,12 +55,12 @@ public class DiaryServiceImpl implements DiaryService {
   }
 
   @Override
-  public DiaryResultDto getDiary(Long id) {
+  public Diary getDiary(Long id) {
     var diary=diaryRepository.findById(id).filter(d->!d.isDeleted()).orElseThrow(()->new IllegalArgumentException("해당하는 포스트가 없습니다."));
     var user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    if(diary.getUser().equals(user)|| diary.isPublic()){
-      return DiaryResultDto.of(diary);
+    if(Objects.equals(diary.getUser().getId(), user.getId()) || diary.isPublic()){
+      return diary;
     }
     throw new RuntimeException("비공개 포스트입니다.");
   }

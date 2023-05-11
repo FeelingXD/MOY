@@ -25,23 +25,24 @@ public class DiaryController {
 
   @PostMapping
   public ResponseEntity<?> postDiary(@RequestBody DiaryForm form) {
-    var diary=diaryService.postDiary(form);
+    var result=diaryService.postDiary(form);
     URI location = ServletUriComponentsBuilder.fromCurrentRequest()
         .path("/{id}")
-        .build(diary.getId());
-    return ResponseEntity.created(location).body(DiaryResultDto.of(diary));
+        .build(result.getId());
+    return ResponseEntity.created(location).body(DiaryResultDto.of(result));
   }
   @GetMapping("/{id}")
   public ResponseEntity<?> getDiary(@PathVariable Long id){
-    return ResponseEntity.ok().body(diaryService.getDiary(id));
+    var result=diaryService.getDiary(id);
+    return ResponseEntity.ok().body(DiaryResultDto.of(result));
   }
 
   @PutMapping("/{id}")
   public ResponseEntity<?> patchDiary(@PathVariable Long id,@RequestBody DiaryForm form) {
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().build(id);
-
-    return ResponseEntity.created(location).body(diaryService.patchDiary(id,form));
+    var result =diaryService.patchDiary(id,form);
+    return ResponseEntity.created(location).body(DiaryResultDto.of(result));
   }
 
   @DeleteMapping("/{id}")
