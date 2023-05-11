@@ -16,7 +16,7 @@ public class DiaryServiceImpl implements DiaryService {
 
   private final DiaryRepository diaryRepository;
   @Override
-  public DiaryResultDto postDiary(DiaryForm form) {
+  public Diary postDiary(DiaryForm form) {
 
     var user=  (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -24,7 +24,7 @@ public class DiaryServiceImpl implements DiaryService {
     diary.setUser(user);
     Diary savedResult=diaryRepository.save(diary);
 
-    return DiaryResultDto.of(savedResult);
+    return savedResult;
   }
 
   @Override
