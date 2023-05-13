@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,6 +38,8 @@ public class User extends BaseEntity implements UserDetails {
 
   private String password;
 
+  @OneToMany(mappedBy = "user")
+  List<Diary> diaries;
 
   @ElementCollection(fetch = FetchType.EAGER)
   @Builder.Default

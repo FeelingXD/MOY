@@ -29,15 +29,16 @@ public class SignController {
 
     return ResponseEntity.ok().body(signService.signUp(signUpDto));
   }
+
   @PostMapping("/logout")
-  public ResponseEntity<?> logout(HttpServletRequest req){
+  public ResponseEntity<?> logout(HttpServletRequest req) {
     return ResponseEntity.ok().body(signService.logout(req));
   }
+
   @PostMapping("/reissue")
-  public ResponseEntity<?> reissue(HttpServletRequest req){
+  public ResponseEntity<?> reissue(HttpServletRequest req) {
     return ResponseEntity.ok().body(signService.reissue(req));
   }
-
 
 
 }

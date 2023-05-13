@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtTokenProvider jwtTokenProvider;
-  private final RedisTemplate<String,String> redisSignTemplate;
+  private final RedisTemplate<String, String> redisSignTemplate;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,

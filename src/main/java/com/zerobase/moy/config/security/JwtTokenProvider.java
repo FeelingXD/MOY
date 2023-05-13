@@ -11,7 +11,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,8 +30,8 @@ public class JwtTokenProvider {
   @Value("${jwt.secretKey}")
   private String secretKey;
 
-  private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 5 ;
-  private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60* 24;
+  private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 5;
+  private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24;
   private final UserDetailsService userDetailsService;
 
 
@@ -57,14 +56,15 @@ public class JwtTokenProvider {
     return token;
   }
 
-  public String createRefreshToken(){//rtk
+  public String createRefreshToken() {//rtk
     Date now = new Date();
     String token = Jwts.builder()
         .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRATION))
         .signWith(SignatureAlgorithm.HS256, secretKey)
         .compact();
-    return  token;
+    return token;
   }
+
   public Authentication getAuthentication(String token) { // token 정보 검사
 
     UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUser(token));
@@ -86,9 +86,10 @@ public class JwtTokenProvider {
     return request.getHeader(ACCESS_TOKEN_HEADER);
   }
 
-  public String resolveRtk(HttpServletRequest request){
+  public String resolveRtk(HttpServletRequest request) {
     return request.getHeader(REFRESH_TOKEN_HEADER);
   }
+
   public boolean validateToken(String token) {
     try { // check validate  with secretKey
       Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -97,10 +98,11 @@ public class JwtTokenProvider {
       return false;
     }
   }
-  public Long getExpiration(String token){
+
+  public Long getExpiration(String token) {
     Date expiration = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody()
         .getExpiration();
-    long now =new Date().getTime();
-    return expiration.getTime()-now;
+    long now = new Date().getTime();
+    return expiration.getTime() - now;
   }
 }

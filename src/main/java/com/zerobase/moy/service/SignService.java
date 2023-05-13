@@ -15,5 +15,6 @@ public interface SignService {
   SignInResultDto signIn(SignInRequestDto dto) throws RuntimeException;
 
   LogoutResultDto logout(HttpServletRequest req);
+
   ReissueResultDto reissue(HttpServletRequest req);
 }

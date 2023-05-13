@@ -2,7 +2,6 @@ package com.zerobase.moy.data.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,6 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class TokenDto {
+
   private String atk;
   private String rtk;
 }
