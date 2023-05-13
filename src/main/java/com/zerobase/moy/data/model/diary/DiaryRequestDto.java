@@ -1,5 +1,6 @@
 package com.zerobase.moy.data.model.diary;
 
+import com.zerobase.moy.data.entity.Diary;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,17 +12,17 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class DiaryForm {
+public class DiaryRequestDto {
 
   private String title;
   private String content;
-  private String isPublic;
+  private boolean isPublic;
 
-  public static DiaryRequestDto toDiaryRequestDto(DiaryForm form) {
-    return DiaryRequestDto.builder()
-        .title(form.getTitle())
-        .content(form.getContent())
-        .isPublic(!form.getIsPublic().isBlank())
+  public static Diary toEntity(DiaryRequestDto dto) {
+    return Diary.builder()
+        .title(dto.getTitle())
+        .content(dto.getContent())
+        .isPublic(dto.isPublic)
         .build();
   }
 }
