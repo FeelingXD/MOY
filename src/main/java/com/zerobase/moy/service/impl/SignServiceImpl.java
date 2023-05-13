@@ -9,6 +9,8 @@ import com.zerobase.moy.data.model.SignInRequestDto;
 import com.zerobase.moy.data.model.SignInResultDto;
 import com.zerobase.moy.data.model.SignUpRequestDto;
 import com.zerobase.moy.data.model.SignUpResultDto;
+import com.zerobase.moy.exception.diary.CustomException;
+import com.zerobase.moy.exception.diary.ErrorCode;
 import com.zerobase.moy.repository.UserRepository;
 import com.zerobase.moy.service.SignService;
 import java.util.Collections;
@@ -52,15 +54,12 @@ public class SignServiceImpl implements SignService {
   }
 
   @Override
-  public SignInResultDto signIn(SignInRequestDto dto) throws RuntimeException {
+  public SignInResultDto signIn(SignInRequestDto dto)  {
     User user = userRepository.findByEmail(dto.getEmail())
-        .orElseThrow(() -> new RuntimeException("사용자 정보없음"));
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
     if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
-      log.info(dto.getPassword());
-      log.info(passwordEncoder.encode(dto.getPassword()));
-      log.info(user.getPassword());
-      throw new RuntimeException("패스워드 불일치 ");
+      throw new CustomException(ErrorCode.PASSWORD_MISMATCH);
     }
     var atk = jwtTokenProvider.createAccessToken(user.getUsername(), user.getRoles());
     var rtk = jwtTokenProvider.createRefreshToken();
@@ -81,10 +80,9 @@ public class SignServiceImpl implements SignService {
   @Override
   public LogoutResultDto logout(HttpServletRequest req) {
     var atk = jwtTokenProvider.resolveAtk(req);
-    var rtk = jwtTokenProvider.resolveRtk(req);
 
     if (!jwtTokenProvider.validateToken(atk)) {
-      throw new IllegalArgumentException("로그아웃 : 유효하지않은 토큰");
+      throw new CustomException(ErrorCode.INVALID_ATK);
     }
 
     var user = jwtTokenProvider.getAuthentication(atk);
@@ -110,7 +108,7 @@ public class SignServiceImpl implements SignService {
     var rtk = jwtTokenProvider.resolveRtk(req);
 
     if (!jwtTokenProvider.validateToken(rtk)) {
-      throw new RuntimeException("유효하지 않은 refresh token 입니다.");
+      throw new CustomException(ErrorCode.INVALID_RTK);
     }
     var user = (User) jwtTokenProvider.getAuthentication(atk).getPrincipal();
 
