@@ -44,7 +44,7 @@ public class DiaryServiceImpl implements DiaryService {
     var diary = diaryRepository.findByIdAndDeletedIsFalse(id)
         .orElseThrow(() -> new IllegalArgumentException("해당하는 포스트가 없습니다."));
 
-    if (!diary.getUser().equals(user)) {
+    if (!Objects.equals(diary.getUser().getId(), user.getId())) {
       throw new RuntimeException("권한이 없습니다.");
     }
     diary.setDeleted(true);
