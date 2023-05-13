@@ -26,7 +26,7 @@ public class Diary extends BaseEntity {
   @ManyToOne
   private User user;
 
-  private boolean isPublic=false;
+  private boolean isPublic = false;
   private String title;
 
   private String content;

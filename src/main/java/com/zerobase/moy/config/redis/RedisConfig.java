@@ -31,34 +31,38 @@ public class RedisConfig extends CachingConfigurerSupport {
   private Long timeout;
 
   @Bean
-  public LettuceConnectionFactory lettuceConeectionFactory(){
+  public LettuceConnectionFactory lettuceConeectionFactory() {
     LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
         .commandTimeout(Duration.ofMinutes(1))
         .shutdownTimeout(Duration.ZERO)
         .build();
-    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host,port);
-    return new LettuceConnectionFactory(redisStandaloneConfiguration,lettuceClientConfiguration);
+    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(
+        host, port);
+    return new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
   }
+
   @Bean
-  public RedisTemplate<?,?> redisSignTemplate(){
-    RedisTemplate<String,String> template=new RedisTemplate<>();
+  public RedisTemplate<?, ?> redisSignTemplate() {
+    RedisTemplate<String, String> template = new RedisTemplate<>();
     template.setValueSerializer(new StringRedisSerializer());
     template.setKeySerializer(new StringRedisSerializer());
     template.setConnectionFactory(lettuceConeectionFactory());
     return template;
   }
-  
+
   @Bean
   @Override
-  public CacheManager cacheManager(){
+  public CacheManager cacheManager() {
 
-    RedisCacheManager.RedisCacheManagerBuilder builder=RedisCacheManager
+    RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
         .RedisCacheManagerBuilder
         .fromConnectionFactory(lettuceConeectionFactory());
 
-    RedisCacheConfiguration configuration=RedisCacheConfiguration.defaultCacheConfig()
-        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+    RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
+        .serializeKeysWith(
+            RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
+            new GenericJackson2JsonRedisSerializer()))
         .entryTtl(Duration.ofHours(timeout));
     builder.cacheDefaults(configuration);
 

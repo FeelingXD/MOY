@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
+import com.zerobase.moy.data.model.diary.DiaryRequestDto;
 import com.zerobase.moy.data.model.diary.DiaryResultDto;
 import com.zerobase.moy.repository.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
@@ -64,6 +65,7 @@ class DiaryServiceImplTest {
     var testForm = DiaryForm.builder()
         .title("목테스트")
         .content("내용")
+        .isPublic("true")
         .build();
     //given
 
@@ -74,7 +76,7 @@ class DiaryServiceImplTest {
         .build();
     when(diaryRepository.save(any())).thenReturn(mockDiary);
     //when
-    var testDto = diaryService.postDiary(testForm);
+    var testDto = diaryService.postDiary(stub_user, DiaryForm.toDiaryRequestDto(testForm));
     //then
     assertEquals(testDto.getTitle(), DiaryResultDto.of(mockDiary).getTitle());
   }
@@ -100,10 +102,10 @@ class DiaryServiceImplTest {
     diary.setContent("Old Content");
     diary.setUser(stub_user);
 
-    when(diaryRepository.findById(1L)).thenReturn(Optional.of(diary));
+    when(diaryRepository.findByIdAndDeletedIsFalse(any())).thenReturn(Optional.of(diary));
     when(diaryRepository.save(diary)).thenReturn(diary);
 
-    DiaryResultDto result = diaryService.patchDiary(1L, mockForm);
+    DiaryResultDto result = DiaryResultDto.of(diaryService.patchDiary(stub_user, 1L, mockForm));
     //then
     verify(diaryRepository).save(diary);
     assertEquals(result.getContent(), mockForm.getContent());
@@ -122,10 +124,9 @@ class DiaryServiceImplTest {
         .user(stub_user)
         .build();
     //when
-    when(diaryRepository.findById(any())).thenReturn(Optional.of(mockDiary));
-    when(diaryRepository.save(mockDiary)).thenReturn(mockDiary);
+    when(diaryRepository.findByIdAndDeletedIsFalse(any())).thenReturn(Optional.of(mockDiary));
     //then
-    diaryService.deleteDiary(1L);
+    diaryService.deleteDiary(stub_user, 1L);
     assertTrue(mockDiary.isDeleted());
   }
   @Test
@@ -138,9 +139,9 @@ class DiaryServiceImplTest {
         .user(stub_user)
         .build();
       //when
-    when(diaryRepository.findById(any())).thenReturn(Optional.of(mockDiary));
+    when(diaryRepository.findByIdAndDeletedIsFalse(any())).thenReturn(Optional.of(mockDiary));
       //then
-    var result=diaryService.getDiary(1L);
+    var result=diaryService.getDiary(stub_user, 1L);
     assertEquals(result.getTitle(),mockDiary.getTitle());
   }
 
@@ -153,9 +154,8 @@ class DiaryServiceImplTest {
         .isPublic(false)
         .user(new User())
         .build();
-    when(diaryRepository.findById(any())).thenReturn(Optional.of(mockDiary));
 
-    assertThrows(RuntimeException.class,() -> diaryService.getDiary(1L));
+    assertThrows(RuntimeException.class,() -> diaryService.getDiary(stub_user, 1L));
   }
 
   @Test
@@ -173,7 +173,7 @@ class DiaryServiceImplTest {
     //when
 
     //then
-    assertThrows(IllegalArgumentException.class,() -> diaryService.getDiary(1L));
+    assertThrows(IllegalArgumentException.class,() -> diaryService.getDiary(stub_user, 1L));
   }
   @Test
   void try_access_others_Diary(){
@@ -192,10 +192,10 @@ class DiaryServiceImplTest {
         .build();
 
     //when
-    when(diaryRepository.findById(1L)).thenReturn(Optional.ofNullable(mockDiary));
+    when(diaryRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.ofNullable(mockDiary));
 
     //
-    assertThrows(RuntimeException.class,() -> diaryService.patchDiary(1L,mockForm));
+    assertThrows(RuntimeException.class,() -> diaryService.patchDiary(stub_user, 1L,mockForm));
   }
 
 

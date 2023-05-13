@@ -1,14 +1,17 @@
 package com.zerobase.moy.service;
 
 import com.zerobase.moy.data.entity.Diary;
+import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
+import com.zerobase.moy.data.model.diary.DiaryRequestDto;
 
 public interface DiaryService {
-  Diary postDiary(DiaryForm form);
 
-  Diary patchDiary(Long id, DiaryForm form) ;
+  Diary postDiary(User user, DiaryRequestDto form);
 
-  void deleteDiary(Long id);
+  Diary patchDiary(User user, Long id, DiaryForm form);
 
-  Diary getDiary(Long id);
+  void deleteDiary(User user, Long id);
+
+  Diary getDiary(User user, Long id);
 }

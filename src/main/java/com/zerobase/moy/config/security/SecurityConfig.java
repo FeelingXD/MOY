@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   private final JwtTokenProvider jwtTokenProvider;
-  private final RedisTemplate<String,String> redisTemplate;
+  private final RedisTemplate<String, String> redisTemplate;
 
   @Bean
   public SecurityFilterChain defaultFilter(HttpSecurity http) throws Exception {
