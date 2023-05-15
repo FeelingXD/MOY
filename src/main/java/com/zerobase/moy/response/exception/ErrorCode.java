@@ -1,12 +1,13 @@
-package com.zerobase.moy.exception;
+package com.zerobase.moy.response.exception;
 
+import com.zerobase.moy.response.Code;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorCode {
+public enum ErrorCode implements Code {
   //Sign
   USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "사용자를 찾을수 없습니다."),
   INVALID_RTK(HttpStatus.BAD_REQUEST, "유효하지않은 Refresh토큰 입니다."),

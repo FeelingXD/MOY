@@ -1,9 +1,10 @@
-package com.zerobase.moy.data.model.response;
+package com.zerobase.moy.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 
 @Data
@@ -11,14 +12,16 @@ import lombok.Getter;
 @Getter
 public class ApiResponse<T> {
 
-  private int code;
+  private String code;
+  private HttpStatus status;
   private String msg;
   private T data;
 
 
   @Builder
-  public ApiResponse(ResponseCode code, T data) {
-    this.code = code.getStatus();
+  public ApiResponse(Code code, T data) {
+    this.code=code.getCode();
+    this.status = code.getStatus();
     this.msg = code.getMsg();
     this.data = data;
   }
