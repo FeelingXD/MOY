@@ -1,4 +1,4 @@
-package com.zerobase.moy.data.model;
+package com.zerobase.moy.data.model.sign;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,11 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-
-public class SignInRequestDto {
+public class SignUpRequestDto {
 
   private String email;
   private String password;
+  private String name;
+
+
 }
