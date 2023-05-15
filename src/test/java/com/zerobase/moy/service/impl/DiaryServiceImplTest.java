@@ -14,7 +14,7 @@ import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
 import com.zerobase.moy.data.model.diary.DiaryResultDto;
-import com.zerobase.moy.exception.CustomException;
+import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.repository.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
 import java.util.Optional;
@@ -154,7 +154,6 @@ class DiaryServiceImplTest {
         .isPublic(false)
         .user(new User())
         .build();
-
     assertThrows(CustomException.class,() -> diaryService.getDiary(stub_user, 1L));
   }
 
