@@ -3,6 +3,8 @@ package com.zerobase.moy.controller;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
 import com.zerobase.moy.data.model.diary.DiaryResultDto;
+import com.zerobase.moy.data.model.response.ApiResponse;
+import com.zerobase.moy.data.model.response.ResponseCode;
 import com.zerobase.moy.service.DiaryService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
@@ -35,13 +37,21 @@ public class DiaryController {
         .path("/{id}")
         .build(result.getId());
 
-    return ResponseEntity.created(location).body(DiaryResultDto.of(result));
+    return ResponseEntity.created(location).body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_CREATED)
+            .data(DiaryResultDto.of(result))
+            .build());
   }
 
   @GetMapping("/{id}")
   public ResponseEntity<?> getDiary(@AuthenticationPrincipal User user, @PathVariable Long id) {
     var result = diaryService.getDiary(user, id);
-    return ResponseEntity.ok().body(DiaryResultDto.of(result));
+    return ResponseEntity.ok().body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_CREATED)
+            .data(DiaryResultDto.of(result))
+            .build());
   }
 
   @PutMapping("/{id}")
@@ -50,12 +60,19 @@ public class DiaryController {
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().build(id);
     var result = diaryService.patchDiary(user, id, form);
-    return ResponseEntity.created(location).body(DiaryResultDto.of(result));
+    return ResponseEntity.ok().body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_CREATED)
+            .data(DiaryResultDto.of(result))
+            .build());
   }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<?> deleteDiary(@AuthenticationPrincipal User user, @PathVariable Long id) {
     diaryService.deleteDiary(user, id);
-    return ResponseEntity.accepted().body("삭제 되었습니다.");
+    return ResponseEntity.ok().body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_DELETED)
+            .build());
   }
 }

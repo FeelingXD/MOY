@@ -4,8 +4,8 @@ import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
 import com.zerobase.moy.data.model.diary.DiaryRequestDto;
-import com.zerobase.moy.exception.diary.CustomException;
-import com.zerobase.moy.exception.diary.ErrorCode;
+import com.zerobase.moy.exception.CustomException;
+import com.zerobase.moy.exception.ErrorCode;
 import com.zerobase.moy.repository.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
 import java.util.Objects;
@@ -46,7 +46,7 @@ public class DiaryServiceImpl implements DiaryService {
     var diary = diaryRepository.findByIdAndDeletedIsFalse(id)
         .orElseThrow(() -> new CustomException(ErrorCode.DIARY_NOT_FOUND));
 
-    if (!diary.getUser().equals(user)) {
+    if (!Objects.equals(diary.getUser().getId(), user.getId())) {
       throw new CustomException(ErrorCode.NOT_AUTHORIZED);
     }
     diary.setDeleted(true);
