@@ -1,6 +1,7 @@
-package com.zerobase.moy.data.model;
+package com.zerobase.moy.data.model.sign;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,13 +10,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 @Getter
 @Setter
-public class SignUpResultDto {
+public class TokenDto {
 
-  private boolean success;
-
-  private int code;
-
-  private String msg;
+  private String atk;
+  private String rtk;
 }

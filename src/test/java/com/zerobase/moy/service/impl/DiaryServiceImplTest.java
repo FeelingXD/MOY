@@ -13,8 +13,8 @@ import static org.mockito.Mockito.when;
 import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
-import com.zerobase.moy.data.model.diary.DiaryRequestDto;
 import com.zerobase.moy.data.model.diary.DiaryResultDto;
+import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.repository.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
 import java.util.Optional;
@@ -154,8 +154,7 @@ class DiaryServiceImplTest {
         .isPublic(false)
         .user(new User())
         .build();
-
-    assertThrows(RuntimeException.class,() -> diaryService.getDiary(stub_user, 1L));
+    assertThrows(CustomException.class,() -> diaryService.getDiary(stub_user, 1L));
   }
 
   @Test
@@ -173,7 +172,7 @@ class DiaryServiceImplTest {
     //when
 
     //then
-    assertThrows(IllegalArgumentException.class,() -> diaryService.getDiary(stub_user, 1L));
+    assertThrows(CustomException.class,() -> diaryService.getDiary(stub_user, 1L));
   }
   @Test
   void try_access_others_Diary(){
@@ -195,7 +194,7 @@ class DiaryServiceImplTest {
     when(diaryRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.ofNullable(mockDiary));
 
     //
-    assertThrows(RuntimeException.class,() -> diaryService.patchDiary(stub_user, 1L,mockForm));
+    assertThrows(CustomException.class,() -> diaryService.patchDiary(stub_user, 1L,mockForm));
   }
 
 

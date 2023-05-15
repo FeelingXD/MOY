@@ -1,4 +1,4 @@
-package com.zerobase.moy.data.model;
+package com.zerobase.moy.data.model.sign;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,12 +11,11 @@ import lombok.ToString;
 @ToString
 @Builder
 @Getter
-public class LogoutResultDto extends SignUpResultDto {
 
-  private boolean success;
+public class SignInRequestDto {
 
-  private int code;
+  private String email;
+  private String password;
 
-  private String msg;
-  private String expiredToken;
+
 }

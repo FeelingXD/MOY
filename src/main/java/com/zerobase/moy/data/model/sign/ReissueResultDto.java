@@ -1,4 +1,4 @@
-package com.zerobase.moy.data.model;
+package com.zerobase.moy.data.model.sign;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Builder
 @Getter
+@Builder
+public class ReissueResultDto {
 
-public class SignUpRequestDto {
+  TokenDto token;
 
-  private String email;
-  private String password;
-  private String name;
 }
