@@ -17,21 +17,24 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class FollowServiceImpl implements FollowService {
+
   private final UserRepository userRepository;
   private final FollowRepository followRepository;
+
   @Override
   public void addFollower(User user, Long id) {
-    if(Objects.equals(user.getId(), id)){
+    if (Objects.equals(user.getId(), id)) {
       throw new CustomException(ErrorCode.CAN_NOT_SELF_FOLLOW);
     }
-    FollowId followId=new FollowId(user.getId(),id);
+    FollowId followId = new FollowId(user.getId(), id);
 
-    if(followRepository.findById(followId).isPresent()){
+    if (followRepository.findById(followId).isPresent()) {
       throw new CustomException(ErrorCode.ALREADY_FOLLOWED);
     }
 
-    User toUser= userRepository.findByIdAndDeletedIsFalse(id).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-    Follow follow=Follow.builder()
+    User toUser = userRepository.findByIdAndDeletedIsFalse(id)
+        .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+    Follow follow = Follow.builder()
         .id(followId)
         .fromUser(user)
         .toUser(toUser)
@@ -41,7 +44,8 @@ public class FollowServiceImpl implements FollowService {
 
   @Override
   public void deleteFollower(User user, Long id) {
-    Follow follow=followRepository.findById(new FollowId(user.getId(),id)).orElseThrow(() -> new CustomException(ErrorCode.FOLLOW_NOT_FOUND));
+    Follow follow = followRepository.findById(new FollowId(user.getId(), id))
+        .orElseThrow(() -> new CustomException(ErrorCode.FOLLOW_NOT_FOUND));
     followRepository.delete(follow);
   }
 

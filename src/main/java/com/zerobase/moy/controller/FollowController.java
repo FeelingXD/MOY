@@ -18,41 +18,47 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowController {
 
   private final FollowService followService;
+
   @PostMapping("follow/{id}")
-  public ResponseEntity<?> addFollower(@AuthenticationPrincipal User user,@PathVariable Long id){
-    followService.addFollower(user,id);
+  public ResponseEntity<?> addFollower(@AuthenticationPrincipal User user, @PathVariable Long id) {
+    followService.addFollower(user, id);
     return ResponseEntity.ok().body(
         ApiResponse.builder()
             .code(ResponseCode.RESPONSE_SUCCESS)
             .build()
     );
   }
+
   @DeleteMapping("follow/{id}")
-  public ResponseEntity<?> deleteFollower(@AuthenticationPrincipal User user,@PathVariable Long id){
-    followService.deleteFollower(user,id);
+  public ResponseEntity<?> deleteFollower(@AuthenticationPrincipal User user,
+      @PathVariable Long id) {
+    followService.deleteFollower(user, id);
     return ResponseEntity.ok().body(
         ApiResponse.builder()
             .code(ResponseCode.RESPONSE_SUCCESS)
             .build()
     );
   }
+
   @GetMapping("/followers")
-  public ResponseEntity<?> getFollowers(@AuthenticationPrincipal User user){
+  public ResponseEntity<?> getFollowers(@AuthenticationPrincipal User user) {
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)
         .data(followService.getCountFollowers(user))
         .build());
   }
+
   @GetMapping("/followings")
-  public ResponseEntity<?> getFollowings(@AuthenticationPrincipal User user){
+  public ResponseEntity<?> getFollowings(@AuthenticationPrincipal User user) {
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)
         .data(followService.getCountFollowings(user))
         .build());
   }
+
   @GetMapping("/feeds")
-  public ResponseEntity<?> getFeeds(@AuthenticationPrincipal User user){
-    var result=followService.getFeeds(user);
+  public ResponseEntity<?> getFeeds(@AuthenticationPrincipal User user) {
+    var result = followService.getFeeds(user);
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)
         .data(result)

@@ -20,7 +20,7 @@ public class ApiResponse<T> {
 
   @Builder
   public ApiResponse(Code code, T data) {
-    this.code=code.getCode();
+    this.code = code.getCode();
     this.status = code.getStatus();
     this.msg = code.getMsg();
     this.data = data;

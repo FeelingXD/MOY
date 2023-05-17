@@ -7,6 +7,7 @@ import java.util.List;
 public interface FollowService {
 
   void addFollower(User user, Long id);
+
   void deleteFollower(User user, Long id);
 
   Integer getCountFollowings(User user);

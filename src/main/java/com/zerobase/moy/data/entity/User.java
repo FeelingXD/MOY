@@ -14,7 +14,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,14 +41,14 @@ public class User extends BaseEntity implements UserDetails {
 
   private String password;
 
-  @OneToMany(mappedBy = "fromUser",cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "fromUser", cascade = CascadeType.REMOVE)
   @JsonIgnore
   private Set<Follow> follower;
-  @OneToMany(mappedBy = "toUser",cascade = CascadeType.REMOVE)
+  @OneToMany(mappedBy = "toUser", cascade = CascadeType.REMOVE)
   @JsonIgnore
   private Set<Follow> following;
 
-  @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 
   List<Diary> diaries;
 

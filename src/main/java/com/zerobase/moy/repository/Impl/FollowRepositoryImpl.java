@@ -1,6 +1,5 @@
 package com.zerobase.moy.repository.Impl;
 
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zerobase.moy.data.entity.QDiary;
 import com.zerobase.moy.data.entity.QFollow;

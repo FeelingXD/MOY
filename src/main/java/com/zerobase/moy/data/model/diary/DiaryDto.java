@@ -21,7 +21,7 @@ public class DiaryDto {
   private String title;
   private String contents;
 
-  public static DiaryDto of(Diary d){
+  public static DiaryDto of(Diary d) {
     return DiaryDto.builder()
         .id(d.getId())
         .author(d.getUser().getUsername())
