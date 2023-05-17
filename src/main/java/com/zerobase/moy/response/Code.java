@@ -8,9 +8,10 @@ public interface Code {
   HttpStatus status = null;
   String msg = null;
 
-  public default String getCode() {
+  default String getCode() {
     return this.toString();
   }
+
   HttpStatus getStatus();
 
   String getMsg();

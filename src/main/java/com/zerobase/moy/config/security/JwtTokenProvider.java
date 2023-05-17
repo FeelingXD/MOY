@@ -11,6 +11,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtTokenProvider {
 
   @Value("${jwt.auth.atk}")
@@ -30,7 +32,7 @@ public class JwtTokenProvider {
   @Value("${jwt.secretKey}")
   private String secretKey;
 
-  private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 5;
+  private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 60;
   private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24;
   private final UserDetailsService userDetailsService;
 
