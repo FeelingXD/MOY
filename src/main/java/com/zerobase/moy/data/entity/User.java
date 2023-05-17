@@ -1,9 +1,12 @@
 package com.zerobase.moy.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,10 +42,18 @@ public class User extends BaseEntity implements UserDetails {
 
   private String password;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "fromUser",cascade = CascadeType.REMOVE)
+  @JsonIgnore
+  private Set<Follow> follower;
+  @OneToMany(mappedBy = "toUser",cascade = CascadeType.REMOVE)
+  @JsonIgnore
+  private Set<Follow> following;
+
+  @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+
   List<Diary> diaries;
 
-  @ElementCollection(fetch = FetchType.EAGER)
+  @ElementCollection(fetch = FetchType.LAZY)
   @Builder.Default
   private List<String> roles = new ArrayList<>();
 
