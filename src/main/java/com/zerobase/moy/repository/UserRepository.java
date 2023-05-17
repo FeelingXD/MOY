@@ -13,6 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   @Query("select u from User u left join fetch u.roles where u.email =:email and u.deleted is false ")
   User getByEmailAndDeletedIsFalse(String email);
+  @Query("select u from User u left join fetch u.roles where u.id =:id and u.deleted is false ")
   Optional<User> findByIdAndDeletedIsFalse(Long id);
   Integer countByEmail(String email);
 }
