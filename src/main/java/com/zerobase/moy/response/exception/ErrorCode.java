@@ -18,7 +18,10 @@ public enum ErrorCode implements Code {
   // DIARY
   DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 다이어리 입니다."),
   NOT_AUTHORIZED(HttpStatus.FORBIDDEN, "권한이 없습니다."),
-  DIARY_IS_NOT_PUBLIC(HttpStatus.BAD_REQUEST, "비공개 다이어리 입니다.");
+  DIARY_IS_NOT_PUBLIC(HttpStatus.BAD_REQUEST, "비공개 다이어리 입니다."),
+  FOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST,"팔로우 상태가 아닙니다." ),
+  CAN_NOT_SELF_FOLLOW(HttpStatus.BAD_REQUEST,"자신을 팔로우할수없습니다." ),
+  ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST,"이미 팔로우 입니다." );
 
   private final HttpStatus status;
   private final String msg;
