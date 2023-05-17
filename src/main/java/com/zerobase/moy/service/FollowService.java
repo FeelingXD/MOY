@@ -9,9 +9,9 @@ public interface FollowService {
   void addFollower(User user, Long id);
   void deleteFollower(User user, Long id);
 
-  Integer getFollowings(User user);
+  Integer getCountFollowings(User user);
 
-  Integer getFollowers(User user);
+  Integer getCountFollowers(User user);
 
   List<DiaryDto> getFeeds(User user);
 

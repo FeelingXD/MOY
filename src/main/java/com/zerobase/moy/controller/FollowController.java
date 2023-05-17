@@ -40,14 +40,14 @@ public class FollowController {
   public ResponseEntity<?> getFollowers(@AuthenticationPrincipal User user){
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)
-        .data(followService.getFollowers(user))
+        .data(followService.getCountFollowers(user))
         .build());
   }
   @GetMapping("/followings")
   public ResponseEntity<?> getFollowings(@AuthenticationPrincipal User user){
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)
-        .data(followService.getFollowings(user))
+        .data(followService.getCountFollowings(user))
         .build());
   }
   @GetMapping("/feeds")

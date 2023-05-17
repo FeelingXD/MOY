@@ -46,12 +46,12 @@ public class FollowServiceImpl implements FollowService {
   }
 
   @Override
-  public Integer getFollowings(User user) {
+  public Integer getCountFollowings(User user) {
     return followRepository.countByFromUserId(user.getId());
   }
 
   @Override
-  public Integer getFollowers(User user) {
+  public Integer getCountFollowers(User user) {
     return followRepository.countByToUserId(user.getId());
 
   }
