@@ -32,14 +32,11 @@ public class Follow {
 
   @Embeddable
   @NoArgsConstructor
+  @AllArgsConstructor
   public static class FollowId implements Serializable {
 
     private Long fromUserId;
     private Long toUserId;
 
-    public FollowId(Long fromUserId, Long toUserId) {
-      this.fromUserId = fromUserId;
-      this.toUserId = toUserId;
-    }
   }
 }
