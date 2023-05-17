@@ -20,7 +20,25 @@ Content-Type: application/json
   "name": "민우",
   "password": "1234"
 }
+### sign 3
+POST http://localhost:8080/sign-api/sign-up
+Content-Type: application/json
 
+{
+  "email": "testaccount3@gmail.com",
+  "name": "태우",
+  "password": "1234"
+}
+
+### sign 4
+POST http://localhost:8080/sign-api/sign-up
+Content-Type: application/json
+
+{
+  "email": "testaccount4@gmail.com",
+  "name": "지우",
+  "password": "1234"
+}
 ### sign in
 POST http://localhost:8080/sign-api/sign-in
 Content-Type: application/json
@@ -36,6 +54,24 @@ Content-Type: application/json
 
 {
   "email": "testaccount2@gmail.com",
+  "password": "1234"
+}
+
+### sign in3
+POST http://localhost:8080/sign-api/sign-in
+Content-Type: application/json
+
+{
+  "email": "testaccount3@gmail.com",
+  "password": "1234"
+}
+
+### sign in4
+POST http://localhost:8080/sign-api/sign-in
+Content-Type: application/json
+
+{
+  "email": "testaccount4@gmail.com",
   "password": "1234"
 }
 ### reissue
