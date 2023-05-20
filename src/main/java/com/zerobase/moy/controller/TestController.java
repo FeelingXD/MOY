@@ -38,7 +38,7 @@ public class TestController {
         .build());
   }
   @GetMapping("/reportException")
-  public ResponseEntity<?> testException() throws JsonProcessingException {
+  public ResponseEntity<?> testException() throws Exception {
     var result=testService.testException();
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)

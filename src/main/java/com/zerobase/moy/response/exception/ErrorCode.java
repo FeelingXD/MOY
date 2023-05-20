@@ -21,7 +21,9 @@ public enum ErrorCode implements Code {
   DIARY_IS_NOT_PUBLIC(HttpStatus.BAD_REQUEST, "비공개 다이어리 입니다."),
   FOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST,"팔로우 상태가 아닙니다." ),
   CAN_NOT_SELF_FOLLOW(HttpStatus.BAD_REQUEST,"자신을 팔로우할수없습니다." ),
-  ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST,"이미 팔로우 입니다." );
+  ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST,"이미 팔로우 입니다." ),
+  //CLOVA
+  CLOVA_RESPONSE_ERROR(HttpStatus.BAD_REQUEST,"CLOVA API ERROR" );
 
   private final HttpStatus status;
   private final String msg;
