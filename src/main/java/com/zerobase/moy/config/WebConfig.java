@@ -8,6 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class WebConfig {
+
   @Value("${CLOVA.url}")
   String END_POINT;
   @Value("${CLOVA.header.client-id}")
@@ -15,12 +16,13 @@ public class WebConfig {
   @Value("${CLOVA.header.client-secret}")
   String CLOVA_HEADER_KEY;
 
-  String CLOVA_CONTENT_TYPE="Content-Type";
+  String CLOVA_CONTENT_TYPE = "Content-Type";
 
   @Value("${CLOVA.client.id}")
   String API_ID;
   @Value("${CLOVA.client.secret}")
   String API_SECRET_KEY;
+
   @Bean
   public WebClient CLOVA_WebClient() {
     return WebClient.builder()

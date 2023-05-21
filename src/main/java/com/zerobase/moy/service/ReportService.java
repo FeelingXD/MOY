@@ -5,6 +5,7 @@ import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.CLOVA.SentimentResponse;
 
 public interface ReportService {
+
   SentimentResponse reportDiary(User user, Long id) throws JsonProcessingException;
 
   SentimentResponse getReport(User user, Long id) throws JsonProcessingException;

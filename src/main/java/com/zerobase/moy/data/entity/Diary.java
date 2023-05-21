@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PreUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,11 +35,15 @@ public class Diary extends BaseEntity {
 
   @OneToOne
   private Report report;
-  private boolean reported =false;
+  private boolean reported = false;
   private boolean isPublic = false;
   private String title;
 
   private String content;
 
+  @PreUpdate
+  public void preUpdate() {
+    this.setReported(false);
+  }
 
 }

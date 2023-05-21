@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface DiaryRepository extends JpaRepository<Diary, Long> {
 
   Optional<Diary> findByIdAndDeletedIsFalse(Long id);
-  Optional<Diary> findByIdAndUserIdAndReportedIsFalseAndDeletedIsFalse(Long id,Long UserId);
+
+  Optional<Diary> findByIdAndUserIdAndReportedIsFalseAndDeletedIsFalse(Long id, Long UserId);
 }

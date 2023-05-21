@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReportRepository extends JpaRepository<Report,Long> {
+public interface ReportRepository extends JpaRepository<Report, Long> {
 
   @Query("select r from Report r where r.id =:id and r.diary.user.id=:user_id and r.diary.reported is true")
-  Optional<Report> findByIdAndDiary_User_Id(@Param("id") Long id,@Param("user_id")Long user_id);
+  Optional<Report> findByIdAndDiary_User_Id(@Param("id") Long id, @Param("user_id") Long user_id);
 }

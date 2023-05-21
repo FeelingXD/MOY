@@ -18,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class ReportController {
+
   private final ReportService reportService;
 
   @PostMapping("/{id}")
-  private ResponseEntity<?> postReport(@AuthenticationPrincipal User user,@PathVariable Long id)
+  private ResponseEntity<?> postReport(@AuthenticationPrincipal User user, @PathVariable Long id)
       throws JsonProcessingException {
-    var result=reportService.reportDiary(user,id);
+    var result = reportService.reportDiary(user, id);
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_CREATED)
         .data(result)
@@ -31,9 +32,9 @@ public class ReportController {
   }
 
   @GetMapping("/{id}")
-  private ResponseEntity<?> getReport(@AuthenticationPrincipal User user,@PathVariable Long id)
+  private ResponseEntity<?> getReport(@AuthenticationPrincipal User user, @PathVariable Long id)
       throws JsonProcessingException {
-    var result=reportService.getReport(user,id);
+    var result = reportService.getReport(user, id);
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_CREATED)
         .data(result)

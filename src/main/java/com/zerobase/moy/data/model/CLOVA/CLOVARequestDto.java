@@ -12,5 +12,6 @@ import lombok.ToString;
 @Builder
 @Getter
 public class CLOVARequestDto {
+
   private String content;
 }
