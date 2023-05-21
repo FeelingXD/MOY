@@ -68,7 +68,7 @@ public class ReportServiceImpl implements ReportService {
                     var clovaErrorResponse = JsonUtil.fromJson(errorResponse,SentimentErrorResponse.class);
                     return Mono.error(new ClovaResponseException(ErrorCode.CLOVA_RESPONSE_ERROR,clovaErrorResponse));
                   } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
+                    return Mono.error(new CustomException(ErrorCode.JSON_PROCESS_ERROR));
                   }
                 })).bodyToMono(String.class);
 
