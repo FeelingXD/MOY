@@ -24,7 +24,7 @@ public class WebConfig {
   String API_SECRET_KEY;
 
   @Bean
-  public WebClient CLOVA_WebClient() {
+  public WebClient ClovaWebClient() {
     return WebClient.builder()
         .baseUrl(END_POINT)
         .defaultHeader(CLOVA_HEADER_ID, API_ID)
