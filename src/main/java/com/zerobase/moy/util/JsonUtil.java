@@ -9,12 +9,10 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JsonUtil {
 
-  private final ObjectMapper objectMapper=new ObjectMapper();
-  public static SentimentResponse toSentimentResponse(String json) throws JsonProcessingException {
-    return objectMapper.readValue(json, SentimentResponse.class);
-  }
-  public static SentimentErrorResponse toSentimentErrorResponse(String json) throws Exception {
-    return objectMapper.readValue(json, SentimentErrorResponse.class);
+  private final ObjectMapper objectMapper = new ObjectMapper();
+
+  public <T> T fromJson(String json ,Class<T> valueType) throws JsonProcessingException {
+      return objectMapper.readValue(json, valueType);
   }
 
 }
