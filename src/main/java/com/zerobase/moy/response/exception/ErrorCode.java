@@ -19,9 +19,14 @@ public enum ErrorCode implements Code {
   DIARY_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 다이어리 입니다."),
   NOT_AUTHORIZED(HttpStatus.FORBIDDEN, "권한이 없습니다."),
   DIARY_IS_NOT_PUBLIC(HttpStatus.BAD_REQUEST, "비공개 다이어리 입니다."),
-  FOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST,"팔로우 상태가 아닙니다." ),
-  CAN_NOT_SELF_FOLLOW(HttpStatus.BAD_REQUEST,"자신을 팔로우할수없습니다." ),
-  ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST,"이미 팔로우 입니다." );
+  FOLLOW_NOT_FOUND(HttpStatus.BAD_REQUEST, "팔로우 상태가 아닙니다."),
+  CAN_NOT_SELF_FOLLOW(HttpStatus.BAD_REQUEST, "자신을 팔로우할수없습니다."),
+  ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST, "이미 팔로우 입니다."),
+  //CLOVA
+  CLOVA_RESPONSE_ERROR(HttpStatus.BAD_REQUEST, "CLOVA API ERROR"),
+  ALREADY_REPORTED(HttpStatus.BAD_REQUEST, "이미 보고서가 작성되었거나 접근할 수 없는 다이어리 입니다."),
+  NOT_FOUND_REPORT(HttpStatus.BAD_REQUEST, "보고서가 존재하지 않거나 접근할 수 없는 보고서입니다."),
+  JSON_PROCESS_ERROR( HttpStatus.BAD_REQUEST ,"JSON 변환오류 " );
 
   private final HttpStatus status;
   private final String msg;

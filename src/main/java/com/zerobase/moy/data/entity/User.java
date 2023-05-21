@@ -49,7 +49,6 @@ public class User extends BaseEntity implements UserDetails {
   private Set<Follow> following;
 
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-
   List<Diary> diaries;
 
   @ElementCollection(fetch = FetchType.LAZY)

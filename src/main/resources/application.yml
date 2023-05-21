@@ -17,9 +17,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+  config:
+    import: CLOVA.yml
 
 jwt:
   secretKey: 38583a5affa17b1ff4b0dc664f55ec125282913f95f42aa4ad11de2198019ddf5c8bfc1bcee5b047cfa356fc61d2d679d278d0943479451518bf6325d58e2094
   auth:
     atk: ATK
     rtk: RTK
+
