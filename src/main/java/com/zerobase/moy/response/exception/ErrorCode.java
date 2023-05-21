@@ -23,7 +23,9 @@ public enum ErrorCode implements Code {
   CAN_NOT_SELF_FOLLOW(HttpStatus.BAD_REQUEST,"자신을 팔로우할수없습니다." ),
   ALREADY_FOLLOWED(HttpStatus.BAD_REQUEST,"이미 팔로우 입니다." ),
   //CLOVA
-  CLOVA_RESPONSE_ERROR(HttpStatus.BAD_REQUEST,"CLOVA API ERROR" );
+  CLOVA_RESPONSE_ERROR(HttpStatus.BAD_REQUEST,"CLOVA API ERROR" ),
+  ALREADY_REPORTED(HttpStatus.BAD_REQUEST,"이미 보고서가 작성되었거나 접근할 수 없는 다이어리 입니다." ),
+  NOT_FOUND_REPORT(HttpStatus.BAD_REQUEST     ,"보고서가 존재하지 않거나 접근할 수 없는 보고서입니다." );
 
   private final HttpStatus status;
   private final String msg;

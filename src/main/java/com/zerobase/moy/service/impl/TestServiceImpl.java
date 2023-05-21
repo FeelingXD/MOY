@@ -14,6 +14,8 @@ public class TestServiceImpl {
   String response;
   @Value("${CLOVA.test.error}")
   String error;
+
+  String test;
   public SentimentResponse test() throws JsonProcessingException {
     return JsonUtil.toSentimentResponse(response);
   }

@@ -12,7 +12,6 @@ public class SentimentResponse {
   private Document document;
   private List<Sentence> sentences;
 
-  // Getters and setters
   @Getter
   @Setter
   @ToString
@@ -20,7 +19,6 @@ public class SentimentResponse {
     private String sentiment;
     private Confidence confidence;
 
-    // Getters and setters
   }
   @Getter
   @Setter
@@ -33,7 +31,6 @@ public class SentimentResponse {
     private Confidence confidence;
     private List<Highlight> highlights;
 
-    // Getters and setters
   }
   @Getter
   @Setter
@@ -43,7 +40,6 @@ public class SentimentResponse {
     private double positive;
     private double negative;
 
-    // Getters and setters
   }
   @Getter
   @Setter
@@ -52,6 +48,5 @@ public class SentimentResponse {
     private int offset;
     private int length;
 
-    // Getters and setters
   }
 }

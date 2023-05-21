@@ -7,11 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Builder
@@ -19,6 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Diary extends BaseEntity {
 
   @Id
@@ -29,6 +32,9 @@ public class Diary extends BaseEntity {
   @JsonIgnore
   private User user;
 
+  @OneToOne
+  private Report report;
+  private boolean reported =false;
   private boolean isPublic = false;
   private String title;
 
