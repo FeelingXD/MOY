@@ -14,8 +14,9 @@ import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
 import com.zerobase.moy.data.model.diary.DiaryResultDto;
+import com.zerobase.moy.repository.elastic.DiaryDocumentRepository;
 import com.zerobase.moy.response.exception.CustomException;
-import com.zerobase.moy.repository.DiaryRepository;
+import com.zerobase.moy.repository.jpa.DiaryRepository;
 import com.zerobase.moy.service.DiaryService;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,6 +39,8 @@ class DiaryServiceImplTest {
 
   @Mock
   DiaryRepository diaryRepository;
+  @Mock
+  DiaryDocumentRepository diaryDocumentRepository;
 
   User stub_user = User.builder()
       .id(1L)
@@ -47,7 +50,7 @@ class DiaryServiceImplTest {
   @BeforeEach
   void init() {
     MockitoAnnotations.openMocks(this);
-    diaryService = new DiaryServiceImpl(diaryRepository);
+    diaryService = new DiaryServiceImpl(diaryRepository,diaryDocumentRepository);
 
     Authentication auth = mock(Authentication.class);
     lenient().when(auth.getPrincipal()).thenReturn(stub_user);
