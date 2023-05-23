@@ -6,8 +6,8 @@ import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.CLOVA.CLOVARequestDto;
 import com.zerobase.moy.data.model.CLOVA.SentimentErrorResponse;
 import com.zerobase.moy.data.model.CLOVA.SentimentResponse;
-import com.zerobase.moy.repository.DiaryRepository;
-import com.zerobase.moy.repository.ReportRepository;
+import com.zerobase.moy.repository.jpa.DiaryRepository;
+import com.zerobase.moy.repository.jpa.ReportRepository;
 import com.zerobase.moy.response.exception.ClovaResponseException;
 import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.response.exception.ErrorCode;
@@ -39,11 +39,15 @@ public class ReportServiceImpl implements ReportService {
 
     var result = getApiResponse(content).block();
 
-    var report = Report.builder().diary(diary).json(content).build();
+    var report = Report.builder()
+        .diary(diary)
+        .json(result)
+        .build();
     diary.setReported(true);
+
     reportRepository.save(report);
 
-    return JsonUtil.fromJson(content, SentimentResponse.class);
+    return JsonUtil.fromJson(result, SentimentResponse.class);
   }
 
   @Override
@@ -56,7 +60,6 @@ public class ReportServiceImpl implements ReportService {
 
   public Mono<String> getApiResponse(String content) {
     var requestDto = CLOVARequestDto.builder().content(content).build();
-    log.info(requestDto.getContent());
     return clovaClient.post()
         .accept(MediaType.APPLICATION_JSON)
         .bodyValue(requestDto)
