@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,6 @@ public class Report {
   @MapsId
   private Diary diary;
 
-  @Column(length = 50000)
+  @Column(columnDefinition = "TEXT")
   private String json;
 }
