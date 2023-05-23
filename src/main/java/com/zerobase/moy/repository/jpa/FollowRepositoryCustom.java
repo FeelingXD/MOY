@@ -1,4 +1,4 @@
-package com.zerobase.moy.repository;
+package com.zerobase.moy.repository.jpa;
 
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryDto;
