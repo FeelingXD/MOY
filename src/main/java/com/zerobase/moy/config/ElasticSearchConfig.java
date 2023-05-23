@@ -21,7 +21,7 @@ public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
   private String diary_index;
 
   @Bean
-  public String getDiaryIndex(){
+  public String getDiaryIndex() {
     return diary_index;
   }
 

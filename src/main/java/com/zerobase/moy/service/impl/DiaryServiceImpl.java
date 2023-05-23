@@ -1,6 +1,5 @@
 package com.zerobase.moy.service.impl;
 
-import com.zerobase.moy.data.domain.DiaryDocument;
 import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.stereotype.Service;
 
 @Service

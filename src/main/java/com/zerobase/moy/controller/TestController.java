@@ -67,10 +67,10 @@ public class TestController {
   public ResponseEntity<?> testGetPublicDiaries(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
-      @RequestParam(defaultValue = "create_date")String sortType) {
-    Sort sort= Sort.by(Direction.DESC,sortType);
+      @RequestParam(defaultValue = "create_date") String sortType) {
+    Sort sort = Sort.by(Direction.DESC, sortType);
 
-    PageRequest pageRequest = PageRequest.of(page, size,sort);
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
     var result = diaryService.getPublicDiaries(pageRequest);
 
     return ResponseEntity.ok().body(
@@ -84,9 +84,9 @@ public class TestController {
   public ResponseEntity<?> testSearch(@RequestParam String query,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
-      @RequestParam(defaultValue = "create_date")String sortType) {
-    Sort sort= Sort.by(Direction.DESC,sortType);
-    PageRequest pageRequest = PageRequest.of(page, size,sort);
+      @RequestParam(defaultValue = "create_date") String sortType) {
+    Sort sort = Sort.by(Direction.DESC, sortType);
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
     var result = diaryService.searchDiaries(query, pageRequest);
     return ResponseEntity.ok().body(
         ApiResponse.builder()

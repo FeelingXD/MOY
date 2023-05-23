@@ -1,6 +1,5 @@
 package com.zerobase.moy.data.domain;
 
-import com.zerobase.moy.data.entity.Diary;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,6 +26,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Mapping(mappingPath = "/static/elastic/diary-mapping.json")
 @Document(indexName = "#{@getDiaryIndex}")
 public class DiaryDocument {
+
   @Id
   private Long id;
   @Field(type = FieldType.Long)
@@ -37,14 +37,14 @@ public class DiaryDocument {
   @Field(type = FieldType.Text)
 
   private String content;
-  @Field(type = FieldType.Boolean,name = "is_public")
+  @Field(type = FieldType.Boolean, name = "is_public")
   private boolean isPublic;
   @Field(type = FieldType.Boolean)
   private boolean deleted;
 
-  @Field(type = FieldType.Date,name="create_date")
+  @Field(type = FieldType.Date, name = "create_date")
   private LocalDateTime createDate;
-  @Field(type = FieldType.Date,name = "last_modified_date")
+  @Field(type = FieldType.Date, name = "last_modified_date")
 
   private LocalDateTime lastModifiedDate;
 

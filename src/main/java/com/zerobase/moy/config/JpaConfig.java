@@ -10,5 +10,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaRepositories(basePackages = {RDS_PACKAGE})
 public class JpaConfig {
-  static final String RDS_PACKAGE="com.zerobase.moy.repository.jpa";
+
+  static final String RDS_PACKAGE = "com.zerobase.moy.repository.jpa";
 }

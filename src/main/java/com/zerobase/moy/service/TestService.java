@@ -2,7 +2,6 @@ package com.zerobase.moy.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.zerobase.moy.data.model.CLOVA.SentimentResponse;
-import com.zerobase.moy.response.exception.ClovaResponseException;
 import com.zerobase.moy.service.impl.ReportServiceImpl;
 import com.zerobase.moy.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
@@ -23,14 +22,15 @@ public class TestService {
   String error;
 
   public SentimentResponse test() throws JsonProcessingException {
-    return JsonUtil.fromJson(response,SentimentResponse.class);
+    return JsonUtil.fromJson(response, SentimentResponse.class);
   }
 
   public SentimentResponse testException() throws Exception {
-    return JsonUtil.fromJson(error,SentimentResponse.class);
+    return JsonUtil.fromJson(error, SentimentResponse.class);
   }
+
   public void clovaExceptionTest() {
 
-      log.info(reportService.getApiResponse("").block());
+    log.info(reportService.getApiResponse("").block());
   }
 }

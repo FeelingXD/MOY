@@ -68,8 +68,10 @@ public class ReportServiceImpl implements ReportService {
             response.bodyToMono(String.class)
                 .flatMap(errorResponse -> {
                   try {
-                    var clovaErrorResponse = JsonUtil.fromJson(errorResponse,SentimentErrorResponse.class);
-                    return Mono.error(new ClovaResponseException(ErrorCode.CLOVA_RESPONSE_ERROR,clovaErrorResponse));
+                    var clovaErrorResponse = JsonUtil.fromJson(errorResponse,
+                        SentimentErrorResponse.class);
+                    return Mono.error(new ClovaResponseException(ErrorCode.CLOVA_RESPONSE_ERROR,
+                        clovaErrorResponse));
                   } catch (JsonProcessingException e) {
                     return Mono.error(new CustomException(ErrorCode.JSON_PROCESS_ERROR));
                   }

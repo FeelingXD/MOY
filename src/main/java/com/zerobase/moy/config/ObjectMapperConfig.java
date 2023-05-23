@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 public class ObjectMapperConfig {
 
   @Bean
-  public ObjectMapper objectMapper(){
-    ObjectMapper mapper =new ObjectMapper();
-    mapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(),true);
+  public ObjectMapper objectMapper() {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true);
     mapper.registerModule(new JavaTimeModule());
     return mapper;
   }

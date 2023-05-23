@@ -1,9 +1,7 @@
 package com.zerobase.moy.repository.elastic;
 
 import com.zerobase.moy.data.domain.DiaryDocument;
-import java.util.List;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
@@ -15,5 +13,5 @@ public interface DiaryDocumentRepository extends ElasticsearchRepository<DiaryDo
   Page<DiaryDocument> findAllByDeletedIsFalseAndIsPublicIsTrue(Pageable pageable);
 
   @Query("{\"multi_match\": {\"query\": \"?0\", \"fields\": [\"title^3\", \"content\"]}}")
-  Page<DiaryDocument> searchByFields(String query,Pageable pageable);
+  Page<DiaryDocument> searchByFields(String query, Pageable pageable);
 }

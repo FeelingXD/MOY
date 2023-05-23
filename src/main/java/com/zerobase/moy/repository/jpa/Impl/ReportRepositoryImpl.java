@@ -13,21 +13,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 @RequiredArgsConstructor
 public class ReportRepositoryImpl implements ReportRepositoryCustom {
+
   private final JPAQueryFactory queryFactory;
 
 
   @Override
   public Optional<Report> findByIdAndDiary_User_Id(Long id, Long user_id) {
 
-    QReport qReport=QReport.report;
-    QDiary qDiary=QDiary.diary;
-    QUser qUser=QUser.user;
+    QReport qReport = QReport.report;
+    QDiary qDiary = QDiary.diary;
+    QUser qUser = QUser.user;
 
-    var result=queryFactory
+    var result = queryFactory
         .select(qReport)
         .from(qReport)
-        .join(qReport.diary,qDiary)
-        .join(qDiary.user,qUser)
+        .join(qReport.diary, qDiary)
+        .join(qDiary.user, qUser)
         .where(qReport.id.eq(id)
             .and(qUser.id.eq(user_id))
             .and(qDiary.deleted.isFalse())
