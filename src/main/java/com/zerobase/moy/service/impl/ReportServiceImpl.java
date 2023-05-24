@@ -1,6 +1,7 @@
 package com.zerobase.moy.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.Report;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.CLOVA.CLOVARequestDto;
@@ -35,7 +36,8 @@ public class ReportServiceImpl implements ReportService {
     var diary = diaryRepository.findByIdAndUserIdAndReportedIsFalseAndDeletedIsFalse(id,
         user.getId()).orElseThrow(() -> new CustomException(
         ErrorCode.ALREADY_REPORTED));
-    var content = diary.getTitle() + " " + diary.getContent();
+
+    var content = getContent(diary);
 
     var result = getApiResponse(content).block();
 
@@ -45,9 +47,14 @@ public class ReportServiceImpl implements ReportService {
         .build();
     diary.setReported(true);
 
-    reportRepository.save(report);
 
-    return JsonUtil.fromJson(result, SentimentResponse.class);
+      diaryRepository.save(diary);
+      reportRepository.save(report);
+      return JsonUtil.fromJson(result, SentimentResponse.class);
+  }
+
+  private String getContent(Diary diary) {
+    return diary.getTitle() + " " + diary.getContent();
   }
 
   @Override
