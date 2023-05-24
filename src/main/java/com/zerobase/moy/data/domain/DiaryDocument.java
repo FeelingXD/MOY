@@ -24,7 +24,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Entity
 @Setting(settingPath = "/static/elastic/diary-setting.json")
 @Mapping(mappingPath = "/static/elastic/diary-mapping.json")
-@Document(indexName = "#{@getDiaryIndex}")
+@Document(indexName = "#{@elasticSearchConfig.getDiaryIndex()}")
 public class DiaryDocument {
 
   @Id
