@@ -8,7 +8,7 @@ import com.zerobase.moy.data.model.sign.SignInRequestDto;
 import com.zerobase.moy.data.model.sign.SignInResultDto;
 import com.zerobase.moy.data.model.sign.SignUpRequestDto;
 import com.zerobase.moy.data.model.sign.TokenDto;
-import com.zerobase.moy.repository.UserRepository;
+import com.zerobase.moy.repository.jpa.UserRepository;
 import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.response.exception.ErrorCode;
 import com.zerobase.moy.service.SignService;

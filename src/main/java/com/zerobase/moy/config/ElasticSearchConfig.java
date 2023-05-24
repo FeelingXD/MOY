@@ -1,0 +1,39 @@
+package com.zerobase.moy.config;
+
+import static com.zerobase.moy.config.ElasticSearchConfig.ELASTIC_DOMAIN_PACKAGE;
+
+import javax.annotation.PostConstruct;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.data.elasticsearch.client.ClientConfiguration;
+import org.springframework.data.elasticsearch.client.RestClients;
+import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+
+@Configuration
+@EnableElasticsearchRepositories(basePackages = {ELASTIC_DOMAIN_PACKAGE})
+public class ElasticSearchConfig extends AbstractElasticsearchConfiguration {
+
+  @Value("${elasticsearch.host}")
+  private String host;
+  @Value("${elasticsearch.index.diary}")
+  private String diaryIndex;
+
+  static final String ELASTIC_DOMAIN_PACKAGE = "com.zerobase.moy.repository.elastic";
+
+
+  public String getDiaryIndex() {
+    return this.diaryIndex;
+  }
+
+  @Override
+  public RestHighLevelClient elasticsearchClient() {
+    ClientConfiguration clientConfiguration = ClientConfiguration.builder()
+        .connectedTo(host)
+        .build();
+    return RestClients.create(clientConfiguration).rest();
+  }
+}

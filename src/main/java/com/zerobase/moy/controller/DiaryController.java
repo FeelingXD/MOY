@@ -8,6 +8,9 @@ import com.zerobase.moy.response.ResponseCode;
 import com.zerobase.moy.service.DiaryService;
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -74,5 +78,38 @@ public class DiaryController {
         ApiResponse.builder()
             .code(ResponseCode.RESPONSE_DELETED)
             .build());
+  }
+
+  @GetMapping("/public")
+  public ResponseEntity<?> testGetPublicDiaries(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "create_date") String sortType) {
+    Sort sort = Sort.by(Direction.DESC, sortType);
+
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
+    var result = diaryService.getPublicDiaries(pageRequest);
+
+    return ResponseEntity.ok().body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_SUCCESS)
+            .data(result).build()
+    );
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<?> testSearch(@RequestParam String query,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "create_date") String sortType) {
+    Sort sort = Sort.by(Direction.DESC, sortType);
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
+    var result = diaryService.searchDiaries(query, pageRequest);
+    return ResponseEntity.ok().body(
+        ApiResponse.builder()
+            .code(ResponseCode.RESPONSE_SUCCESS)
+            .data(result)
+            .build()
+    );
   }
 }

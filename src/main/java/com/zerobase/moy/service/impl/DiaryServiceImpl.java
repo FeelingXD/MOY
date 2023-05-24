@@ -4,19 +4,29 @@ import com.zerobase.moy.data.entity.Diary;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryForm;
 import com.zerobase.moy.data.model.diary.DiaryRequestDto;
-import com.zerobase.moy.repository.DiaryRepository;
+import com.zerobase.moy.data.model.diarydocument.DiaryDocumentDto;
+import com.zerobase.moy.repository.elastic.DiaryDocumentRepository;
+import com.zerobase.moy.repository.jpa.DiaryRepository;
 import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.response.exception.ErrorCode;
 import com.zerobase.moy.service.DiaryService;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class DiaryServiceImpl implements DiaryService {
 
   private final DiaryRepository diaryRepository;
+
+  private final DiaryDocumentRepository diaryDocumentRepository;
 
   @Override
   public Diary postDiary(User user, DiaryRequestDto dto) {
@@ -64,5 +74,20 @@ public class DiaryServiceImpl implements DiaryService {
     throw new CustomException(ErrorCode.DIARY_IS_NOT_PUBLIC);
   }
 
+  @Override
+  public Page<DiaryDocumentDto> getPublicDiaries(Pageable pageable) {
+    return new PageImpl<>(diaryDocumentRepository.findAllByDeletedIsFalseAndIsPublicIsTrue(pageable)
+        .stream()
+        .map(DiaryDocumentDto::of)
+        .collect(Collectors.toList()));
+  }
+
+  @Override
+  public Page<DiaryDocumentDto> searchDiaries(String query, Pageable pageable) {
+    return new PageImpl<>(diaryDocumentRepository.searchByFields(query, pageable)
+        .stream()
+        .map(DiaryDocumentDto::of)
+        .collect(Collectors.toList()));
+  }
 
 }

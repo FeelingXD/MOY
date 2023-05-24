@@ -1,4 +1,4 @@
-package com.zerobase.moy.repository.Impl;
+package com.zerobase.moy.repository.jpa.Impl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zerobase.moy.data.entity.QDiary;
@@ -6,7 +6,7 @@ import com.zerobase.moy.data.entity.QFollow;
 import com.zerobase.moy.data.entity.QUser;
 import com.zerobase.moy.data.entity.User;
 import com.zerobase.moy.data.model.diary.DiaryDto;
-import com.zerobase.moy.repository.FollowRepositoryCustom;
+import com.zerobase.moy.repository.jpa.FollowRepositoryCustom;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;

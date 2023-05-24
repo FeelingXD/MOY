@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "content": {
+      "type": "text",
+      "analyzer": "korean"
+    },
+    "create_date": {
+      "type": "date"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "long"
+    },
+    "is_public": {
+      "type": "boolean"
+    },
+    "last_modified_date": {
+      "type": "date"
+    },
+    "message": {
+      "type": "text"
+    },
+    "title": {
+      "type": "text",
+      "analyzer": "korean"
+    },
+    "user_id": {
+      "type": "long"
+    }
+  }
+}

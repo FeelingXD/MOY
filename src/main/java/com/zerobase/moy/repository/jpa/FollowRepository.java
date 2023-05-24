@@ -1,4 +1,4 @@
-package com.zerobase.moy.repository;
+package com.zerobase.moy.repository.jpa;
 
 import com.zerobase.moy.data.entity.Follow;
 import com.zerobase.moy.data.entity.Follow.FollowId;

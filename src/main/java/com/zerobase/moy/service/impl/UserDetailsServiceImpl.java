@@ -1,6 +1,6 @@
 package com.zerobase.moy.service.impl;
 
-import com.zerobase.moy.repository.UserRepository;
+import com.zerobase.moy.repository.jpa.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
