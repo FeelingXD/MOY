@@ -59,11 +59,11 @@ public class DiaryController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<?> patchDiary(@AuthenticationPrincipal User user, @PathVariable Long id,
+  public ResponseEntity<?> putDiary(@AuthenticationPrincipal User user, @PathVariable Long id,
       @RequestBody DiaryForm form) {
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().build(id);
-    var result = diaryService.patchDiary(user, id, form);
+    var result = diaryService.putDiary(user, id, DiaryForm.toDiaryRequestDto(form));
     return ResponseEntity.ok().body(
         ApiResponse.builder()
             .code(ResponseCode.RESPONSE_CREATED)

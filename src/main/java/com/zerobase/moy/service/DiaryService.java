@@ -12,7 +12,7 @@ public interface DiaryService {
 
   Diary postDiary(User user, DiaryRequestDto form);
 
-  Diary patchDiary(User user, Long id, DiaryForm form);
+  Diary putDiary(User user, Long id, DiaryRequestDto dto);
 
   void deleteDiary(User user, Long id);
 

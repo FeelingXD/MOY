@@ -36,7 +36,7 @@ public class DiaryServiceImpl implements DiaryService {
   }
 
   @Override
-  public Diary patchDiary(User user, Long id, DiaryForm form) {
+  public Diary putDiary(User user, Long id, DiaryRequestDto dto) {
 
     var diary = diaryRepository.findByIdAndDeletedIsFalse(id)
         .orElseThrow(() -> new CustomException(ErrorCode.DIARY_NOT_FOUND));
@@ -45,8 +45,8 @@ public class DiaryServiceImpl implements DiaryService {
       throw new CustomException(ErrorCode.NOT_AUTHORIZED);
     }
 
-    diary.setContent(form.getContent());
-    diary.setTitle(form.getTitle());
+    diary.setContent(dto.getContent());
+    diary.setTitle(dto.getTitle());
 
     return diaryRepository.save(diary);
   }
