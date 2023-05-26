@@ -7,10 +7,8 @@ import com.zerobase.moy.response.ResponseCode;
 import com.zerobase.moy.service.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,13 +44,15 @@ public class ReportController {
         .data(result)
         .build());
   }
+
   @GetMapping("/my")
-  private ResponseEntity<?> getMyReport(@AuthenticationPrincipal User user,  @RequestParam(defaultValue = "0") int page,
+  private ResponseEntity<?> getMyReport(@AuthenticationPrincipal User user,
+      @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
-      @RequestParam(defaultValue = "id") String sortType){
+      @RequestParam(defaultValue = "id") String sortType) {
     Sort sort = Sort.by(Direction.DESC, sortType);
-    PageRequest pageRequest=PageRequest.of(page,size,sort);
-    var result = reportService.getMyReports(user,pageRequest);
+    PageRequest pageRequest = PageRequest.of(page, size, sort);
+    var result = reportService.getMyReports(user, pageRequest);
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_CREATED)
         .data(result)
