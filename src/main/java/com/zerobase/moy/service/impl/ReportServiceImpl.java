@@ -14,8 +14,12 @@ import com.zerobase.moy.response.exception.CustomException;
 import com.zerobase.moy.response.exception.ErrorCode;
 import com.zerobase.moy.service.ReportService;
 import com.zerobase.moy.util.JsonUtil;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -43,14 +47,13 @@ public class ReportServiceImpl implements ReportService {
 
     var report = Report.builder()
         .diary(diary)
-        .json(result)
+        .json(JsonUtil.fromJson(result, SentimentResponse.class))
         .build();
     diary.setReported(true);
+    diaryRepository.save(diary);
+    reportRepository.save(report);
 
-
-      diaryRepository.save(diary);
-      reportRepository.save(report);
-      return JsonUtil.fromJson(result, SentimentResponse.class);
+    return report.getJson();
   }
 
   private String getContent(Diary diary) {
@@ -61,9 +64,17 @@ public class ReportServiceImpl implements ReportService {
   public SentimentResponse getReport(User user, Long id) throws JsonProcessingException {
     var report = reportRepository.findByIdAndDiary_User_Id(id, user.getId())
         .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_REPORT));
-    return JsonUtil.fromJson(report.getJson(), SentimentResponse.class);
+    return report.getJson();
   }
 
+  @Override
+  public Page<SentimentResponse> getMyReports(User user, Pageable pageable) {
+    var result = reportRepository.getMyReports(user.getId(), pageable)
+        .stream()
+        .map(Report::getJson).collect(Collectors.toList());
+
+    return new PageImpl<>(result);
+  }
 
   public Mono<String> getApiResponse(String content) {
     var requestDto = CLOVARequestDto.builder().content(content).build();

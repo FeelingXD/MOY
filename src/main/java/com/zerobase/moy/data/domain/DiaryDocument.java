@@ -30,7 +30,7 @@ public class DiaryDocument {
   @Id
   private Long id;
   @Field(type = FieldType.Long)
-  private Long user_id;
+  private Long userId;
 
   @Field(type = FieldType.Text)
   private String title;

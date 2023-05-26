@@ -8,6 +8,9 @@ import com.zerobase.moy.data.entity.Report;
 import com.zerobase.moy.repository.jpa.ReportRepositoryCustom;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -15,14 +18,12 @@ import org.springframework.stereotype.Repository;
 public class ReportRepositoryImpl implements ReportRepositoryCustom {
 
   private final JPAQueryFactory queryFactory;
-
+  private final QReport qReport = QReport.report;
+  private final QDiary qDiary = QDiary.diary;
+  private final QUser qUser = QUser.user;
 
   @Override
   public Optional<Report> findByIdAndDiary_User_Id(Long id, Long user_id) {
-
-    QReport qReport = QReport.report;
-    QDiary qDiary = QDiary.diary;
-    QUser qUser = QUser.user;
 
     var result = queryFactory
         .select(qReport)
@@ -35,5 +36,20 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
         ).fetch();
 
     return result.stream().findFirst();
+  }
+
+  @Override
+  public Page<Report> getMyReports(Long userId, Pageable pageable) {
+
+    var result = queryFactory.select(qReport)
+        .from(qReport)
+        .join(qReport.diary, qDiary).fetchJoin()
+        .join(qDiary.user, qUser).fetchJoin()
+        .where(qUser.id.eq(userId))
+        .offset(pageable.getOffset())
+        .limit(pageable.getPageSize())
+        .fetch();
+
+    return new PageImpl<>(result);
   }
 }

@@ -13,4 +13,7 @@ public class JsonUtil {
     return objectMapper.readValue(json, valueType);
   }
 
+  public String toJson(Object obj) throws JsonProcessingException {
+    return objectMapper.writeValueAsString(obj);
+  }
 }
