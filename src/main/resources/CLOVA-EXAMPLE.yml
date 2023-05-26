@@ -1,0 +1,11 @@
+CLOVA:
+  test:
+    response: "{\"document\":{\"sentiment\":\"negative\",\"confidence\":{\"neutral\":0.14525136640572725,\"positive\":0.00186876227013191,\"negative\":0.8528798713241407}},\"sentences\":[{\"content\":\"싸늘하다.\",\"offset\":0,\"length\":5,\"sentiment\":\"negative\",\"confidence\":{\"negative\":0.9961358904838562,\"positive\":0.0036366574931889772,\"neutral\":0.0002274021098855883},\"highlights\":[{\"offset\":0,\"length\":4}]},{\"content\":\" 가슴에 비수가 날아와 꽂힌다.\",\"offset\":5,\"length\":17,\"sentiment\":\"negative\",\"confidence\":{\"negative\":0.927976131439209,\"positive\":0.07131962478160858,\"neutral\":0.0007042606011964381},\"highlights\":[{\"offset\":1,\"length\":15}]}]}}"
+    error: "{\"status\":400,\"error\":{\"errorCode\":\"E001\",\"message\":\"Unsupported empty or blank text\"}}"
+  url: https://naveropenapi.apigw.ntruss.com/sentiment-analysis/v1/analyze
+  header:
+    client-id: X-NCP-APIGW-API-KEY-ID
+    client-secret: X-NCP-APIGW-API-KEY
+  client:
+    secret : your-secret
+    id: your-id
