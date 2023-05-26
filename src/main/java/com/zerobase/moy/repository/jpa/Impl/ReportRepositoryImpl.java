@@ -18,9 +18,9 @@ import org.springframework.stereotype.Repository;
 public class ReportRepositoryImpl implements ReportRepositoryCustom {
 
   private final JPAQueryFactory queryFactory;
-  QReport qReport = QReport.report;
-  QDiary qDiary = QDiary.diary;
-  QUser qUser = QUser.user;
+  private final QReport qReport = QReport.report;
+  private final QDiary qDiary = QDiary.diary;
+  private final QUser qUser = QUser.user;
 
   @Override
   public Optional<Report> findByIdAndDiary_User_Id(Long id, Long user_id) {
@@ -43,9 +43,11 @@ public class ReportRepositoryImpl implements ReportRepositoryCustom {
 
     var result = queryFactory.select(qReport)
         .from(qReport)
-        .join(qReport.diary,qDiary).fetchJoin()
-        .join(qDiary.user,qUser).fetchJoin()
+        .join(qReport.diary, qDiary).fetchJoin()
+        .join(qDiary.user, qUser).fetchJoin()
         .where(qUser.id.eq(userId))
+        .offset(pageable.getOffset())
+        .limit(pageable.getPageSize())
         .fetch();
 
     return new PageImpl<>(result);
