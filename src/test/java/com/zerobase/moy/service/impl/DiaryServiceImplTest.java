@@ -89,6 +89,7 @@ class DiaryServiceImplTest {
     //given
     var mockForm = DiaryForm.builder()
         .title("patch")
+        .isPublic("")
         .content("변경")
         .build();
 
@@ -108,7 +109,7 @@ class DiaryServiceImplTest {
     when(diaryRepository.findByIdAndDeletedIsFalse(any())).thenReturn(Optional.of(diary));
     when(diaryRepository.save(diary)).thenReturn(diary);
 
-    DiaryResultDto result = DiaryResultDto.of(diaryService.putDiary(stub_user, 1L, mockForm));
+    DiaryResultDto result = DiaryResultDto.of(diaryService.putDiary(stub_user, 1L, DiaryForm.toDiaryRequestDto(mockForm)));
     //then
     verify(diaryRepository).save(diary);
     assertEquals(result.getContent(), mockForm.getContent());
@@ -190,6 +191,7 @@ class DiaryServiceImplTest {
         .build();
     var mockForm = DiaryForm.builder()
         .title("patch")
+        .isPublic("")
         .content("변경")
         .build();
 
@@ -197,7 +199,7 @@ class DiaryServiceImplTest {
     when(diaryRepository.findByIdAndDeletedIsFalse(1L)).thenReturn(Optional.ofNullable(mockDiary));
 
     //
-    assertThrows(CustomException.class,() -> diaryService.putDiary(stub_user, 1L,mockForm));
+    assertThrows(CustomException.class,() -> diaryService.putDiary(stub_user, 1L,DiaryForm.toDiaryRequestDto(mockForm)));
   }
 
 
