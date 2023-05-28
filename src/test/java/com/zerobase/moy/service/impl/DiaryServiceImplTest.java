@@ -49,7 +49,6 @@ class DiaryServiceImplTest {
 
   @BeforeEach
   void init() {
-    MockitoAnnotations.openMocks(this);
     diaryService = new DiaryServiceImpl(diaryRepository,diaryDocumentRepository);
 
     Authentication auth = mock(Authentication.class);
