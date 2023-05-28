@@ -8,6 +8,7 @@ import com.zerobase.moy.service.SignService;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class SignController {
   private final SignService signService;
 
   @PostMapping("/sign-in")
-  public ResponseEntity<?> signIn(@RequestBody SignInForm form) {
+  public ResponseEntity<?> signIn(@RequestBody @Validated SignInForm form) {
 
     var result = signService.signIn(SignInForm.toDto(form));
 
@@ -34,7 +35,7 @@ public class SignController {
   }
 
   @PostMapping("/sign-up")
-  public ResponseEntity<?> signUp(@RequestBody SignUpForm form) {
+  public ResponseEntity<?> signUp(@RequestBody @Validated SignUpForm form) {
     signService.signUp(SignUpForm.toDto(form));
     return ResponseEntity.ok().body(ApiResponse.builder()
         .code(ResponseCode.RESPONSE_SUCCESS)

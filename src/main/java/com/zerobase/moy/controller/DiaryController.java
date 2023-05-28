@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class DiaryController {
   @PostMapping
 
   public ResponseEntity<?> postDiary(@AuthenticationPrincipal User user,
-      @RequestBody DiaryForm form) {
+      @RequestBody @Validated DiaryForm form) {
     var result = diaryService.postDiary(user, DiaryForm.toDiaryRequestDto(form));
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +61,7 @@ public class DiaryController {
 
   @PutMapping("/{id}")
   public ResponseEntity<?> putDiary(@AuthenticationPrincipal User user, @PathVariable Long id,
-      @RequestBody DiaryForm form) {
+      @Validated @RequestBody DiaryForm form) {
 
     URI location = ServletUriComponentsBuilder.fromCurrentRequest().build(id);
     var result = diaryService.putDiary(user, id, DiaryForm.toDiaryRequestDto(form));
