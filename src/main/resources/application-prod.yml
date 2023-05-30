@@ -1,0 +1,31 @@
+spring:
+  redis:
+    port: 6379
+    host: ${REDIS_HOST}
+    timeout: 4
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://${DATABASE_CONTAINER}:3306/${DATABASE_TABLE}?createDatabaseIfNotExist=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  config:
+    import: CLOVA.prod.yml,elasticsearch.prod.yml
+
+jwt:
+  secretKey: 38583a5affa17b1ff4b0dc664f55ec125282913f95f42aa4ad11de2198019ddf5c8bfc1bcee5b047cfa356fc61d2d679d278d0943479451518bf6325d58e2094
+  auth:
+    atk: ATK
+    rtk: RTK
+
