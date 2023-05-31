@@ -6,6 +6,8 @@ import com.zerobase.moy.response.ApiResponse;
 import com.zerobase.moy.response.ResponseCode;
 import com.zerobase.moy.service.TestService;
 import com.zerobase.moy.service.impl.DiaryServiceImpl;
+import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = {"test Controller"})
 @RestController
 @RequestMapping("/api/test")
 @RequiredArgsConstructor
@@ -26,7 +29,7 @@ public class TestController {
   private final TestService testService;
   private final DiaryServiceImpl diaryService;
 
-  @GetMapping()
+  @GetMapping
   public ResponseEntity<?> test(HttpServletRequest req) {
     System.out.println(req);
     return ResponseEntity.ok().body("ok");

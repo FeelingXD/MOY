@@ -29,3 +29,5 @@ jwt:
     atk: ATK
     rtk: RTK
 
+server:
+  port: 8081
