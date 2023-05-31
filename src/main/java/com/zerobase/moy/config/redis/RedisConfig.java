@@ -31,13 +31,15 @@ public class RedisConfig extends CachingConfigurerSupport {
   private Long timeout;
 
   @Bean
-  public LettuceConnectionFactory lettuceConeectionFactory() {
+  public LettuceConnectionFactory lettuceConnectionFactory() {
+
     LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
         .commandTimeout(Duration.ofMinutes(1))
         .shutdownTimeout(Duration.ZERO)
         .build();
-    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(
-        host, port);
+
+    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host, port);
+
     return new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
   }
 
@@ -46,7 +48,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     RedisTemplate<String, String> template = new RedisTemplate<>();
     template.setValueSerializer(new StringRedisSerializer());
     template.setKeySerializer(new StringRedisSerializer());
-    template.setConnectionFactory(lettuceConeectionFactory());
+    template.setConnectionFactory(lettuceConnectionFactory());
     return template;
   }
 
@@ -56,14 +58,13 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
         .RedisCacheManagerBuilder
-        .fromConnectionFactory(lettuceConeectionFactory());
+        .fromConnectionFactory(lettuceConnectionFactory());
 
     RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
-        .serializeKeysWith(
-            RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
-            new GenericJackson2JsonRedisSerializer()))
+        .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
         .entryTtl(Duration.ofHours(timeout));
+
     builder.cacheDefaults(configuration);
 
     return builder.build();
