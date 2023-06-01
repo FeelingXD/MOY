@@ -6,7 +6,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://${DATABASE_CONTAINER}:3306/${DATABASE_TABLE}?createDatabaseIfNotExist=true&useSSL=false
+    url: jdbc:mysql://${DATABASE_CONTAINER}:3306/${DATABASE_TABLE}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   mvc:
@@ -29,3 +29,5 @@ jwt:
     atk: ATK
     rtk: RTK
 
+server:
+  port: 8080
