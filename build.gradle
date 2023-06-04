@@ -27,7 +27,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     //query dsl
     implementation 'com.querydsl:querydsl-jpa'
@@ -51,20 +50,19 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-tasks.register('buildJar', Jar) {
-    archiveBaseName.set('my-app')
-    archiveVersion.set('1.0.0')
-    from(sourceSets.main.output) {
-        exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
-    }
-}
-
 def querydslDir = "$buildDir/generated/querydsl"
 
 sourceSets {
-    main.java.srcDirs += [ querydslDir ]
+    main.java.srcDirs += [querydslDir]
 }
-
+jar{
+    enabled=false
+}
+bootJar{
+    archiveBaseName='MOY'
+    archiveFileName='MOY.jar'
+    archiveVersion='1.0.0'
+}
 
 clean.doLast {
     file(querydslDir).deleteDir()
