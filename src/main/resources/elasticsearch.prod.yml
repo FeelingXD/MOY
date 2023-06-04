@@ -1,0 +1,4 @@
+elasticsearch:
+  host: ${ELASTIC_CONTAINER}:9200
+  index:
+    diary: diary_index

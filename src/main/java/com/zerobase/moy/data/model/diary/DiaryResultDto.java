@@ -1,6 +1,7 @@
 package com.zerobase.moy.data.model.diary;
 
 import com.zerobase.moy.data.entity.Diary;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,8 +17,10 @@ import lombok.ToString;
 @Setter
 public class DiaryResultDto {
 
-
+  @ApiModelProperty(value = "제목")
   private String title;
+
+  @ApiModelProperty(value = "내용")
   private String content;
 
 

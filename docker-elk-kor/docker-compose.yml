@@ -81,7 +81,26 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD : $MYSQL_ROOT_PASSWORD
     container_name: mysql
-
+  api:
+    build:
+      context: api
+      args:
+        MOY_VERSION: $MOY_VERSION
+    ports:
+      - "8080:8080"
+    networks:
+      - elk
+    environment:
+      DATABASE_CONTAINER: $DATABASE_CONTAINER
+      DATABASE_TABLE: $DATABASE_TABLE
+      REDIS_HOST: $REDIS_CONTAINER
+      CLOVA_ID: $CLOVA_ID
+      CLOVA_SECRET: $CLOVA_SECRET
+      ELASTIC_CONTAINER: $ELASTIC_CONTAINER
+      USE_PROFILE: $USE_PROFILE
+    depends_on: 
+      - mysql
+      - elasticsearch
   redis:
     image: redis
     ports:
