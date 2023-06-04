@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '11'
-
+          distribution: 'adopt'
       - name: Build Docker img
         run: |
           docker build -t wlals4253/moy:${{github.sha}} .
