@@ -51,6 +51,14 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+tasks.register('buildJar', Jar) {
+    archiveBaseName.set('my-app')
+    archiveVersion.set('1.0.0')
+    from(sourceSets.main.output) {
+        exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
+    }
+}
+
 def querydslDir = "$buildDir/generated/querydsl"
 
 sourceSets {
